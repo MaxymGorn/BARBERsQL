@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="35be8af208bf40f1b1427e34f8f5d160" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="Database1Model.Barber" Width="1.5" PointX="9.625" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Client" Width="1.375" PointX="1.625" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.FeddbackCl" Width="1.5" PointX="4.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.hISTORY" Width="1.5" PointX="0.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.ListFeddbackCl" Width="1.5" PointX="6.375" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.ListUsl" Width="1.5" PointX="3.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Poistion" Width="1.5" PointX="7.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Uslugi" Width="1.5" PointX="4.5" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.Fk_bB_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Fk_Lusl" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Fk_Pos_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Fk_Pos22_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__FeddbackC__Clien__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Fk2_Lusl" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Fk_LuF_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Fk2_bB22_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Fk2_bB222_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.Fk_Lu_Id" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

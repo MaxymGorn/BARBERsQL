@@ -1,0 +1,641 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Barber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Pol" Type="bit" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateBirthday" Type="date" Nullable="false" />
+          <Property Name="WorkStart" Type="date" Nullable="false" />
+          <Property Name="PositionId" Type="int" Nullable="false" />
+          <Property Name="ListUslugiId" Type="int" Nullable="false" />
+          <Property Name="ListFeedBackId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FeddbackCl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Desciption" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="Stars" Type="int" Nullable="false" />
+          <Property Name="Time" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hISTORY">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BarberId" Type="int" Nullable="false" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="FeedbackIdCl" Type="int" />
+          <Property Name="ListUslId" Type="int" Nullable="false" />
+          <Property Name="DateTime" Type="date" Nullable="false" />
+          <Property Name="AllPrice" Type="money" />
+        </EntityType>
+        <EntityType Name="ListFeddbackCl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeddbackClId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListUsl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UslugiId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Poistion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NamePos" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uslugi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameUsl" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Time" Type="int" />
+        </EntityType>
+        <Association Name="FK__FeddbackC__Clien__6B24EA82">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="FeddbackCl" Type="Self.FeddbackCl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FeddbackCl">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_bB_Id">
+          <End Role="ListFeddbackCl" Type="Self.ListFeddbackCl" Multiplicity="1" />
+          <End Role="Barber" Type="Self.Barber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListFeddbackCl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Barber">
+              <PropertyRef Name="ListFeedBackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Lu_Id">
+          <End Role="Uslugi" Type="Self.Uslugi" Multiplicity="1" />
+          <End Role="ListUsl" Type="Self.ListUsl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListUsl">
+              <PropertyRef Name="UslugiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_LuF_Id">
+          <End Role="FeddbackCl" Type="Self.FeddbackCl" Multiplicity="1" />
+          <End Role="ListFeddbackCl" Type="Self.ListFeddbackCl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeddbackCl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListFeddbackCl">
+              <PropertyRef Name="FeddbackClId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Lusl">
+          <End Role="ListUsl" Type="Self.ListUsl" Multiplicity="1" />
+          <End Role="Barber" Type="Self.Barber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListUsl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Barber">
+              <PropertyRef Name="ListUslugiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Pos_Id">
+          <End Role="Poistion" Type="Self.Poistion" Multiplicity="1" />
+          <End Role="Barber" Type="Self.Barber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poistion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Barber">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Pos22_Id">
+          <End Role="Barber" Type="Self.Barber" Multiplicity="1" />
+          <End Role="hISTORY" Type="Self.hISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barber">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hISTORY">
+              <PropertyRef Name="BarberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk2_bB22_Id">
+          <End Role="ListFeddbackCl" Type="Self.ListFeddbackCl" Multiplicity="0..1" />
+          <End Role="hISTORY" Type="Self.hISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListFeddbackCl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hISTORY">
+              <PropertyRef Name="FeedbackIdCl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk2_bB222_Id">
+          <End Role="ListUsl" Type="Self.ListUsl" Multiplicity="1" />
+          <End Role="hISTORY" Type="Self.hISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListUsl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hISTORY">
+              <PropertyRef Name="ListUslId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk2_Lusl">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="hISTORY" Type="Self.hISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hISTORY">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Database1ModelContainer">
+          <EntitySet Name="Barber" EntityType="Self.Barber" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeddbackCl" EntityType="Self.FeddbackCl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hISTORY" EntityType="Self.hISTORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListFeddbackCl" EntityType="Self.ListFeddbackCl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListUsl" EntityType="Self.ListUsl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poistion" EntityType="Self.Poistion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uslugi" EntityType="Self.Uslugi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__FeddbackC__Clien__6B24EA82" Association="Self.FK__FeddbackC__Clien__6B24EA82">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="FeddbackCl" EntitySet="FeddbackCl" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_bB_Id" Association="Self.Fk_bB_Id">
+            <End Role="ListFeddbackCl" EntitySet="ListFeddbackCl" />
+            <End Role="Barber" EntitySet="Barber" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Lu_Id" Association="Self.Fk_Lu_Id">
+            <End Role="Uslugi" EntitySet="Uslugi" />
+            <End Role="ListUsl" EntitySet="ListUsl" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_LuF_Id" Association="Self.Fk_LuF_Id">
+            <End Role="FeddbackCl" EntitySet="FeddbackCl" />
+            <End Role="ListFeddbackCl" EntitySet="ListFeddbackCl" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Lusl" Association="Self.Fk_Lusl">
+            <End Role="ListUsl" EntitySet="ListUsl" />
+            <End Role="Barber" EntitySet="Barber" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Pos_Id" Association="Self.Fk_Pos_Id">
+            <End Role="Poistion" EntitySet="Poistion" />
+            <End Role="Barber" EntitySet="Barber" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Pos22_Id" Association="Self.Fk_Pos22_Id">
+            <End Role="Barber" EntitySet="Barber" />
+            <End Role="hISTORY" EntitySet="hISTORY" />
+          </AssociationSet>
+          <AssociationSet Name="Fk2_bB22_Id" Association="Self.Fk2_bB22_Id">
+            <End Role="ListFeddbackCl" EntitySet="ListFeddbackCl" />
+            <End Role="hISTORY" EntitySet="hISTORY" />
+          </AssociationSet>
+          <AssociationSet Name="Fk2_bB222_Id" Association="Self.Fk2_bB222_Id">
+            <End Role="ListUsl" EntitySet="ListUsl" />
+            <End Role="hISTORY" EntitySet="hISTORY" />
+          </AssociationSet>
+          <AssociationSet Name="Fk2_Lusl" Association="Self.Fk2_Lusl">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="hISTORY" EntitySet="hISTORY" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Barber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pol" Type="Boolean" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateBirthday" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WorkStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PositionId" Type="Int32" Nullable="false" />
+          <Property Name="ListUslugiId" Type="Int32" Nullable="false" />
+          <Property Name="ListFeedBackId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ListFeddbackCl" Relationship="Self.Fk_bB_Id" FromRole="Barber" ToRole="ListFeddbackCl" />
+          <NavigationProperty Name="ListUsl" Relationship="Self.Fk_Lusl" FromRole="Barber" ToRole="ListUsl" />
+          <NavigationProperty Name="Poistion" Relationship="Self.Fk_Pos_Id" FromRole="Barber" ToRole="Poistion" />
+          <NavigationProperty Name="hISTORies" Relationship="Self.Fk_Pos22_Id" FromRole="Barber" ToRole="hISTORY" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FeddbackCls" Relationship="Self.FK__FeddbackC__Clien__6B24EA82" FromRole="Clients" ToRole="FeddbackCl" />
+          <NavigationProperty Name="hISTORies" Relationship="Self.Fk2_Lusl" FromRole="Clients" ToRole="hISTORY" />
+        </EntityType>
+        <EntityType Name="FeddbackCl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Desciption" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="Stars" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__FeddbackC__Clien__6B24EA82" FromRole="FeddbackCl" ToRole="Clients" />
+          <NavigationProperty Name="ListFeddbackCls" Relationship="Self.Fk_LuF_Id" FromRole="FeddbackCl" ToRole="ListFeddbackCl" />
+        </EntityType>
+        <EntityType Name="hISTORY">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BarberId" Type="Int32" Nullable="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="FeedbackIdCl" Type="Int32" />
+          <Property Name="ListUslId" Type="Int32" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AllPrice" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Barber" Relationship="Self.Fk_Pos22_Id" FromRole="hISTORY" ToRole="Barber" />
+          <NavigationProperty Name="Client" Relationship="Self.Fk2_Lusl" FromRole="hISTORY" ToRole="Clients" />
+          <NavigationProperty Name="ListFeddbackCl" Relationship="Self.Fk2_bB22_Id" FromRole="hISTORY" ToRole="ListFeddbackCl" />
+          <NavigationProperty Name="ListUsl" Relationship="Self.Fk2_bB222_Id" FromRole="hISTORY" ToRole="ListUsl" />
+        </EntityType>
+        <EntityType Name="ListFeddbackCl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeddbackClId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barbers" Relationship="Self.Fk_bB_Id" FromRole="ListFeddbackCl" ToRole="Barber" />
+          <NavigationProperty Name="FeddbackCl" Relationship="Self.Fk_LuF_Id" FromRole="ListFeddbackCl" ToRole="FeddbackCl" />
+          <NavigationProperty Name="hISTORies" Relationship="Self.Fk2_bB22_Id" FromRole="ListFeddbackCl" ToRole="hISTORY" />
+        </EntityType>
+        <EntityType Name="ListUsl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UslugiId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barbers" Relationship="Self.Fk_Lusl" FromRole="ListUsl" ToRole="Barber" />
+          <NavigationProperty Name="hISTORies" Relationship="Self.Fk2_bB222_Id" FromRole="ListUsl" ToRole="hISTORY" />
+          <NavigationProperty Name="Uslugi" Relationship="Self.Fk_Lu_Id" FromRole="ListUsl" ToRole="Uslugi" />
+        </EntityType>
+        <EntityType Name="Poistion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NamePos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Barbers" Relationship="Self.Fk_Pos_Id" FromRole="Poistion" ToRole="Barber" />
+        </EntityType>
+        <EntityType Name="Uslugi">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameUsl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Time" Type="Int32" />
+          <NavigationProperty Name="ListUsls" Relationship="Self.Fk_Lu_Id" FromRole="Uslugi" ToRole="ListUsl" />
+        </EntityType>
+        <Association Name="Fk_bB_Id">
+          <End Role="ListFeddbackCl" Type="Self.ListFeddbackCl" Multiplicity="1" />
+          <End Role="Barber" Type="Self.Barber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListFeddbackCl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Barber">
+              <PropertyRef Name="ListFeedBackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Lusl">
+          <End Role="ListUsl" Type="Self.ListUsl" Multiplicity="1" />
+          <End Role="Barber" Type="Self.Barber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListUsl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Barber">
+              <PropertyRef Name="ListUslugiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Pos_Id">
+          <End Role="Poistion" Type="Self.Poistion" Multiplicity="1" />
+          <End Role="Barber" Type="Self.Barber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poistion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Barber">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Pos22_Id">
+          <End Role="Barber" Type="Self.Barber" Multiplicity="1" />
+          <End Role="hISTORY" Type="Self.hISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barber">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hISTORY">
+              <PropertyRef Name="BarberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FeddbackC__Clien__6B24EA82">
+          <End Role="Clients" Type="Self.Client" Multiplicity="1" />
+          <End Role="FeddbackCl" Type="Self.FeddbackCl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FeddbackCl">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk2_Lusl">
+          <End Role="Clients" Type="Self.Client" Multiplicity="1" />
+          <End Role="hISTORY" Type="Self.hISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hISTORY">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_LuF_Id">
+          <End Role="FeddbackCl" Type="Self.FeddbackCl" Multiplicity="1" />
+          <End Role="ListFeddbackCl" Type="Self.ListFeddbackCl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeddbackCl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListFeddbackCl">
+              <PropertyRef Name="FeddbackClId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk2_bB22_Id">
+          <End Role="ListFeddbackCl" Type="Self.ListFeddbackCl" Multiplicity="0..1" />
+          <End Role="hISTORY" Type="Self.hISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListFeddbackCl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hISTORY">
+              <PropertyRef Name="FeedbackIdCl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk2_bB222_Id">
+          <End Role="ListUsl" Type="Self.ListUsl" Multiplicity="1" />
+          <End Role="hISTORY" Type="Self.hISTORY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListUsl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="hISTORY">
+              <PropertyRef Name="ListUslId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Lu_Id">
+          <End Role="Uslugi" Type="Self.Uslugi" Multiplicity="1" />
+          <End Role="ListUsl" Type="Self.ListUsl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uslugi">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ListUsl">
+              <PropertyRef Name="UslugiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Barbers" EntityType="Self.Barber" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="FeddbackCls" EntityType="Self.FeddbackCl" />
+          <EntitySet Name="hISTORies" EntityType="Self.hISTORY" />
+          <EntitySet Name="ListFeddbackCls" EntityType="Self.ListFeddbackCl" />
+          <EntitySet Name="ListUsls" EntityType="Self.ListUsl" />
+          <EntitySet Name="Poistions" EntityType="Self.Poistion" />
+          <EntitySet Name="Uslugis" EntityType="Self.Uslugi" />
+          <AssociationSet Name="Fk_bB_Id" Association="Self.Fk_bB_Id">
+            <End Role="ListFeddbackCl" EntitySet="ListFeddbackCls" />
+            <End Role="Barber" EntitySet="Barbers" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Lusl" Association="Self.Fk_Lusl">
+            <End Role="ListUsl" EntitySet="ListUsls" />
+            <End Role="Barber" EntitySet="Barbers" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Pos_Id" Association="Self.Fk_Pos_Id">
+            <End Role="Poistion" EntitySet="Poistions" />
+            <End Role="Barber" EntitySet="Barbers" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Pos22_Id" Association="Self.Fk_Pos22_Id">
+            <End Role="Barber" EntitySet="Barbers" />
+            <End Role="hISTORY" EntitySet="hISTORies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FeddbackC__Clien__6B24EA82" Association="Self.FK__FeddbackC__Clien__6B24EA82">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="FeddbackCl" EntitySet="FeddbackCls" />
+          </AssociationSet>
+          <AssociationSet Name="Fk2_Lusl" Association="Self.Fk2_Lusl">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="hISTORY" EntitySet="hISTORies" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_LuF_Id" Association="Self.Fk_LuF_Id">
+            <End Role="FeddbackCl" EntitySet="FeddbackCls" />
+            <End Role="ListFeddbackCl" EntitySet="ListFeddbackCls" />
+          </AssociationSet>
+          <AssociationSet Name="Fk2_bB22_Id" Association="Self.Fk2_bB22_Id">
+            <End Role="ListFeddbackCl" EntitySet="ListFeddbackCls" />
+            <End Role="hISTORY" EntitySet="hISTORies" />
+          </AssociationSet>
+          <AssociationSet Name="Fk2_bB222_Id" Association="Self.Fk2_bB222_Id">
+            <End Role="ListUsl" EntitySet="ListUsls" />
+            <End Role="hISTORY" EntitySet="hISTORies" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Lu_Id" Association="Self.Fk_Lu_Id">
+            <End Role="Uslugi" EntitySet="Uslugis" />
+            <End Role="ListUsl" EntitySet="ListUsls" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities1">
+          <EntitySetMapping Name="Barbers">
+            <EntityTypeMapping TypeName="Database1Model.Barber">
+              <MappingFragment StoreEntitySet="Barber">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Pol" ColumnName="Pol" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateBirthday" ColumnName="DateBirthday" />
+                <ScalarProperty Name="WorkStart" ColumnName="WorkStart" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="ListUslugiId" ColumnName="ListUslugiId" />
+                <ScalarProperty Name="ListFeedBackId" ColumnName="ListFeedBackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="Database1Model.Client">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeddbackCls">
+            <EntityTypeMapping TypeName="Database1Model.FeddbackCl">
+              <MappingFragment StoreEntitySet="FeddbackCl">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Stars" ColumnName="Stars" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hISTORies">
+            <EntityTypeMapping TypeName="Database1Model.hISTORY">
+              <MappingFragment StoreEntitySet="hISTORY">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BarberId" ColumnName="BarberId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="FeedbackIdCl" ColumnName="FeedbackIdCl" />
+                <ScalarProperty Name="ListUslId" ColumnName="ListUslId" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="AllPrice" ColumnName="AllPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListFeddbackCls">
+            <EntityTypeMapping TypeName="Database1Model.ListFeddbackCl">
+              <MappingFragment StoreEntitySet="ListFeddbackCl">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FeddbackClId" ColumnName="FeddbackClId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListUsls">
+            <EntityTypeMapping TypeName="Database1Model.ListUsl">
+              <MappingFragment StoreEntitySet="ListUsl">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UslugiId" ColumnName="UslugiId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Poistions">
+            <EntityTypeMapping TypeName="Database1Model.Poistion">
+              <MappingFragment StoreEntitySet="Poistion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NamePos" ColumnName="NamePos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uslugis">
+            <EntityTypeMapping TypeName="Database1Model.Uslugi">
+              <MappingFragment StoreEntitySet="Uslugi">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameUsl" ColumnName="NameUsl" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
